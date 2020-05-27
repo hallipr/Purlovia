@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional, cast
 from ark.types import PrimalItem
 from automate.hierarchy_exporter import JsonHierarchyExportStage
 from ue.asset import UAsset
+from ue.hierarchy import get_parent_class
 from ue.proxy import UEProxyStructure
 from utils.log import get_logger
 
@@ -43,7 +44,7 @@ class ItemsStage(JsonHierarchyExportStage):
             if item_name:
                 v['name'] = item_name
             v['bp'] = item.get_source().fullname
-            # v['parent'] = get_parent_class(v['bp'])
+            v['parent'] = get_parent_class(v['bp'])
             return v
 
         # Export full data otherwise
@@ -51,7 +52,7 @@ class ItemsStage(JsonHierarchyExportStage):
             v['name'] = item_name
             v['description'] = item.get('ItemDescription', 0, None)
             v['bp'] = item.get_source().fullname
-            # v['parent'] = get_parent_class(v['bp'])
+            v['parent'] = get_parent_class(v['bp'])
             v['icon'] = item.get('ItemIconMaterialParent', 0, item.get('ItemIcon', 0, None))
 
             itemType = item.get('MyItemType', 0, None)
