@@ -163,6 +163,21 @@ class PrimalColorSet(UEProxyStructure, uetype=PRIMAL_COLOR_SET_CLS):
     # DevKit Unverified
 
 
+class PrimalDinoSettings(UEProxyStructure, uetype=PRIMAL_DINO_SETTINGS_CLS):
+    # DevKit Verified
+    DinoFoodTypeName = uestrings('')
+    TamingAffinityNoFoodDecreasePercentageSpeed = uefloats(0.0075)  # TODO: needs raw data
+    WakingTameDisplayItemName = uebools(False)
+
+    BaseDamageTypeAdjusters: Mapping[int, ArrayProperty]  # = []
+    ExtraDamageTypeAdjusters: Mapping[int, ArrayProperty]  # = []
+    ExtraFoodEffectivenessMultipliers: Mapping[int, ArrayProperty]  # = []
+    FoodEffectivenessMultipliers: Mapping[int, ArrayProperty]  # = []
+    DinoFoodTypeImage: Mapping[int, ObjectProperty]  # = None
+
+    # DevKit Unverified
+
+
 class PrimalDinoCharacter(UEProxyStructure, uetype=PDC_CLS):
     # DevKit Verified
 
@@ -266,6 +281,7 @@ class PrimalDinoCharacter(UEProxyStructure, uetype=PDC_CLS):
     DestroyTamesOverLevelClampOffset = ueints(0)
 
     # DevKit Unverified
+    DinoSettingsClass = LazyReference[PrimalDinoSettings]()
 
 
 class PrimalGameData(UEProxyStructure, uetype=PGD_CLS):
@@ -343,20 +359,5 @@ class PrimalItem_Dye(PrimalItem, uetype=PRIMAL_ITEM_DYE_CLS):
     # DevKit Verified
     DyeColor: Mapping[int, LinearColor]  # = (0.0, 0.0, 0.0, 0.0)
     DyeUISceneTemplate: Mapping[int, ObjectProperty]  # = None
-
-    # DevKit Unverified
-
-
-class PrimalDinoSettings(UEProxyStructure, uetype=PRIMAL_DINO_SETTINGS_CLS):
-    # DevKit Verified
-    DinoFoodTypeName = uestrings('')
-    TamingAffinityNoFoodDecreasePercentageSpeed = uefloats(0.0075)  # TODO: needs raw data
-    WakingTameDisplayItemName = uebools(False)
-
-    BaseDamageTypeAdjusters: Mapping[int, ArrayProperty]  # = []
-    ExtraDamageTypeAdjusters: Mapping[int, ArrayProperty]  # = []
-    ExtraFoodEffectivenessMultipliers: Mapping[int, ArrayProperty]  # = []
-    FoodEffectivenessMultipliers: Mapping[int, ArrayProperty]  # = []
-    DinoFoodTypeImage: Mapping[int, ObjectProperty]  # = None
 
     # DevKit Unverified

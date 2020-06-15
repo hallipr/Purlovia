@@ -53,7 +53,7 @@ class ItemsStage(JsonHierarchyExportStage):
             v['description'] = item.get('ItemDescription', 0, None)
             v['bp'] = item.get_source().fullname
             v['parent'] = get_parent_class(v['bp'])
-            v['icon'] = item.get('ItemIconMaterialParent', 0, item.get('ItemIcon', 0, None))
+            v['icon'] = item.get('ItemIconMaterialParent', 0, None) or item.get('ItemIcon', 0, None)
 
             itemType = item.get('MyItemType', 0, None)
             v['type'] = itemType.get_enum_value_name()

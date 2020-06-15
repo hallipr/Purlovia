@@ -129,6 +129,7 @@ JOIN_LINE_FIELDS = (
     'base|crouch|sprint',
     'min|max',
     'min|max|pow',
+    'affinity|health|torpor|food|stamina',
 )
 
 
