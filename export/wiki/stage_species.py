@@ -2,7 +2,8 @@ from typing import Any, Dict, List, Optional, Set, Tuple, cast
 
 from ark.gathering import gather_dcsc_properties
 from ark.overrides import OverrideSettings, get_overrides_for_species
-from ark.taming_food import ItemOverride, collect_species_data
+from ark.taming_food.datatypes import ItemOverride
+from ark.taming_food.species import collect_species_data
 from ark.types import PrimalDinoCharacter
 from ark.variants import adjust_name_from_variants, get_variants_from_assetname, get_variants_from_species
 from automate.hierarchy_exporter import ExportFileModel, ExportModel, Field, JsonHierarchyExportStage
