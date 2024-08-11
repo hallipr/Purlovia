@@ -1,15 +1,5 @@
 {
     "files.exclude": {
-        ".venv": true,
-        ".vscode/.ropeproject": true,
-        "**/__pycache__": true,
-        "**/.mypy_cache": true,
-        "**/.pytest_cache": true,
-        "livedata/game": true,
-        "livedata/app-*": true,
-        "livedata/hierarchy-*": true,
-        "livedata/Steam": true,
-        "tmp": true,
     },
 
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
@@ -33,7 +23,7 @@
     "[python]": {
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": "explicit"
         }
     },
     "editor.codeActionsOnSaveTimeout": 10000,
