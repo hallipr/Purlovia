@@ -126,7 +126,7 @@ defaults:
         /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_CorruptTree_VFX_Red: true
         /Game/Extinction/CoreBlueprints/HarvestComponents/StoneHarvestComponent_LowHealth: true
         /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_Ex_ExtraWood: true
-        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/RockHarvestComponent: true
+        #/Game/PrimalEarth/CoreBlueprints/HarvestComponents/RockHarvestComponent: true
         /Game/Aberration/CoreBlueprints/HarvestComponents/WoodHarvestComponent_KaijuOnly: true
         /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_Ex_RareRedwoodSap: true
         /Game/Extinction/Environment/Wasteland/Vegetation/Clutter/Sticks/EX_HarvestStick_Component: true

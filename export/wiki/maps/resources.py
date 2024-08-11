@@ -65,6 +65,13 @@ def collect_harvestable_resources(export: ExportTableItem, overrides: OverrideSe
         a.add(component_bp)
     component_name = str(component.value.value.name)
 
+    if component_name == 'RockHarvestComponent_C':
+        static_mesh = export.properties.get_property('StaticMesh', fallback=None)
+        if not static_mesh or not static_mesh.value or not static_mesh.value.value:
+            return
+        if not 'Ground_Rocks' in str(static_mesh.value.value.namespace.value.fullname):
+            return
+
     # Query a tag for the resource type depending on level (Genesis 2 rotations, Fjordur subrealms)
     level_name = get_leaf_from_assetname(export.asset.assetname)
     modifier = LEVEL_NAME_EXTRA_SUFFIX.get(level_name, None)
