@@ -3,22 +3,19 @@ from typing import Optional
 
 from automate.exporter import ExportRoot
 
-from .stage_biome_maps import ProcessBiomeMapsStage
-from .stage_spawn_data import GenerateSelfContainedSpawnDataStage
-from .stage_spawn_maps import ProcessSpawnMapsStage
+from .stage_explorer_notes import ExplorerNotesStage
 
 __all__ = [
-    'WikiMapsRoot',
+    'WikiNonPublicRoot',
 ]
 
 
-class WikiMapsRoot(ExportRoot):
-
+class WikiNonPublicRoot(ExportRoot):
     def get_name(self) -> str:
-        return 'maps'
+        return 'wiki_nonpublic'
 
     def get_relative_path(self) -> PurePosixPath:
-        return PurePosixPath('processed/wiki-maps')
+        return PurePosixPath(f'{self.manager.config.export_wiki.PublishSubDir}_local')
 
     def get_should_commit(self):
         return False  # processing nodes are not committed
@@ -26,14 +23,12 @@ class WikiMapsRoot(ExportRoot):
     def get_commit_header(self) -> str:
         raise NotImplementedError
 
-    def get_name_for_path(self, path: PurePosixPath) -> Optional[str]:
+    def get_name_for_path(self, _: PurePosixPath) -> Optional[str]:
         raise NotImplementedError
 
     def __init__(self):
         super().__init__()
 
         self.stages = [
-            ProcessBiomeMapsStage(),
-            GenerateSelfContainedSpawnDataStage(),
-            ProcessSpawnMapsStage(),
+            ExplorerNotesStage(),
         ]

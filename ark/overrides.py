@@ -9,6 +9,7 @@ import yaml
 from pydantic import BaseModel, Field
 
 from config import OVERRIDE_FILENAME
+from ue.utils import get_assetpath_from_assetname
 
 __all__ = [
     'ColorRegionSettings',
@@ -55,10 +56,10 @@ class TamingMethod(str, Enum):
 
 class MapBoundariesSettings(BaseModel):
     '''Boundary settings for maps'''
-    border_top: float = 7.2
-    border_left: float = 7.2
-    border_right: float = 92.8
-    border_bottom: float = 92.8
+    border_top: float = 0
+    border_left: float = 0
+    border_right: float = 100
+    border_bottom: float = 100
 
 
 class OverrideSettings(BaseModel):
@@ -136,6 +137,10 @@ class OverrideSettings(BaseModel):
         MapBoundariesSettings(),
         title="SVGs",
         description="SVG map generation boundaries",
+    )
+    exclude_harvestables: Dict[str, bool] = Field(
+        dict(),
+        description="Harvest components that will not have any nodes emitted for them",
     )
 
 
@@ -253,18 +258,20 @@ def get_overrides_for_species(species: str, modid: str) -> OverrideSettings:
 
 
 @lru_cache(maxsize=16)
-def _get_overrides_for_map_dict(map_asset: str, modid: str) -> Dict:
+def _get_overrides_for_map_dict(level_asset: str, modid: str) -> Dict:
     modid = modid or ''
+    folder = get_assetpath_from_assetname(level_asset)
     config_file = get_overrides()
     settings: Dict[str, Any] = dict()
     nested_update(settings, _get_overrides_for_mod_dict(modid))
-    nested_update(settings, config_file.maps.get(map_asset, OverrideSettings()).dict(exclude_unset=True))
+    nested_update(settings, config_file.maps.get(folder, OverrideSettings()).dict(exclude_unset=True))
+    nested_update(settings, config_file.maps.get(level_asset, OverrideSettings()).dict(exclude_unset=True))
     return settings
 
 
 @lru_cache(maxsize=128)
-def get_overrides_for_map(map: str, modid: str) -> OverrideSettings:
-    settings = _get_overrides_for_map_dict(map, modid)
+def get_overrides_for_map(level: str, modid: str) -> OverrideSettings:
+    settings = _get_overrides_for_map_dict(level, modid)
     return OverrideSettings(**settings)
 
 

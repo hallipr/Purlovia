@@ -108,6 +108,12 @@ class Species(ExportModel):
         description="Relevant boolean flags that are True for this species",
     )
 
+    inventory: Optional[str] = Field(
+        None,
+        description=
+        "Blueprint path of the inventory component used by tames of this species (can by looked up in inventories.json).",
+    )
+
     leveling: LevelData = LevelData()
     cloning: Optional[CloningData] = Field(
         None,
@@ -230,8 +236,13 @@ class SpeciesStage(JsonHierarchyExportStage):
         if species.bIsTrapTamed[0]:
             out.flags.append('canBeTamedWithFishBasket')
 
+        inventory_template = species.get('TamedInventoryComponentTemplate', fallback=None)
+        if inventory_template and inventory_template.value and inventory_template.value.value:
+            out.inventory = inventory_template.value.value.fullname
+
         if not species.bIsBossDino[0]:
             out.leveling = convert_level_data(species, dcsc)
+
         out.cloning = gather_cloning_data(species)
 
         out.falling = FallingData(

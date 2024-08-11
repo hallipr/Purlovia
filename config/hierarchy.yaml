@@ -24,7 +24,8 @@
             - '/Script/AIModule.BTTask_BlueprintBase':
                 - '/Script/AIModule.BTTask_BlueprintBase_New'
 - '/Script/Engine.Actor':
-    - '/Script/ShooterGame.MissionType'
+    - '/Script/ShooterGame.MissionType':
+        - '/Script/ShooterGame.MissionType_ModularMissionBase'
     - '/Script/ShooterGame.SkyBoxLoader'
     - '/Script/ShooterGame.PointOfInterestActor'
     - '/Script/ShooterGame.BaseBoxTrigger':

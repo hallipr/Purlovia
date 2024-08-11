@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path, PurePosixPath
 from typing import Any, Dict, List, Optional
 
@@ -6,10 +7,12 @@ from automate.exporter import ExportManager, ExportRoot, ExportStage
 from automate.hierarchy_exporter import _calculate_relative_path, _output_schema
 from automate.jsonutils import save_json_if_changed
 from automate.version import createExportVersion
-from ue.utils import get_leaf_from_assetname
+from ue.context import ue_parsing_context
+from ue.utils import clean_float, get_leaf_from_assetname
 from utils.log import get_logger
 from utils.strings import get_valid_filename
 
+from .maps.common import get_latlong_from_location
 from .maps.discovery import LevelDiscoverer, group_levels_by_directory
 from .maps.world import EXPORTS, World
 
@@ -107,17 +110,20 @@ class MapStage(ExportStage):
                           expansion: bool = False):
         # Do the actual extraction
         world = World(known_persistent)
-        for assetname in levels:
-            asset = self.manager.loader[assetname]
-            world.ingest_level(asset)
+        with ue_parsing_context(extended_properties=True):
+            for assetname in levels:
+                asset = self.manager.loader[assetname]
+                world.ingest_level(asset)
 
+        # Make sure the world settings were extracted from a persistent level
         if not world.bind_settings():
             logger.error(f'No world settings could have been found for {relative_path} - data will not be emitted.')
             return None
 
+        # Prepare modeled data for saving
         world.convert_for_export()
 
-        # Save
+        # Save modeled data.
         pretty_json = self.manager.config.export_wiki.PrettyJson
         if pretty_json is None:
             pretty_json = True
@@ -127,7 +133,7 @@ class MapStage(ExportStage):
             output_path = (relative_path / file_name).with_suffix('.json')
             clean_relative_path = PurePosixPath(*(get_valid_filename(p) for p in output_path.parts))
 
-            # Remove existing file if exists and no data was found.
+            # Remove existing file if exists and no data was found
             if not data:
                 if output_path.is_file():
                     output_path.unlink()
@@ -161,6 +167,26 @@ class MapStage(ExportStage):
 
             # Save if the data changed
             save_json_if_changed(output, (base_path / output_path), pretty_json)
+
+        # Save harvestables if any were collected
+        if world.resource_nodes:
+            output_path = (base_path / relative_path / 'harvestables')
+            data = world.resource_nodes
+
+            # Clear the harvestables folder if it already exists.
+            if output_path.is_dir():
+                shutil.rmtree(output_path)
+            output_path.mkdir()
+
+            for resource_type, nodes in data.items():
+                with (output_path / resource_type).with_suffix('.csv').open('wt') as fp:
+                    fp.write('Lat,Long,Z,Cave?,Tag?\n')
+                    for x, y, z, is_likely_cave, tag in nodes:
+                        lat, long = get_latlong_from_location(world, x, y)
+                        lat = clean_float(lat)
+                        long = clean_float(long)
+                        z = clean_float(z)
+                        fp.write(f'{lat},{long},{z},{1 if is_likely_cave else 0},{tag or ""}\n')
 
     def _get_schema_file_path(self, file_name: str) -> PurePosixPath:
         return PurePosixPath('.schema') / f'maps_{file_name}.json'

@@ -6,12 +6,14 @@ from automate.exporter import ExportRoot
 from .stage_drops import DropsStage
 from .stage_engrams import EngramsStage
 from .stage_event_colors import EventColorsStage
+from .stage_inventories import InventoriesStage
 from .stage_items import ItemsStage
 from .stage_loot_crates import LootCratesStage
 from .stage_maps import MapStage
 from .stage_missions import MissionsStage
 from .stage_spawn_groups import SpawnGroupStage
 from .stage_species import SpeciesStage
+from .stage_structures import StructuresStage
 
 __all__ = [
     'WikiRoot',
@@ -40,9 +42,11 @@ class WikiRoot(ExportRoot):
             SpawnGroupStage(),
             EngramsStage(),
             ItemsStage(),
+            StructuresStage(),
             DropsStage(),
             LootCratesStage(),
             SpeciesStage(),
+            InventoriesStage(),
             MissionsStage(),
             EventColorsStage(),
         ]

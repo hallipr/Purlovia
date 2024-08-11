@@ -9,6 +9,7 @@ from .base import UEBase
 from .context import INCLUDE_METADATA, get_ctx
 from .coretypes import ChunkPtr, CompressedChunk, GenerationInfo, NameIndex, ObjectIndex, Table
 from .properties import Box, CustomVersion, EngineVersion, Guid, PropertyTable, StringProperty
+from .objects import AFTER_PROPERTY_TABLE_TYPES
 from .stream import MemoryStream
 from .utils import get_clean_name
 
@@ -314,6 +315,16 @@ class ExportTableItem(UEBase):
         stream = MemoryStream(self.stream, self.serial_offset, self.serial_size)
         self._newField('properties', PropertyTable(self, weakref.proxy(stream)))
         self.properties.link()
+
+        ctx = get_ctx()
+        # Read data that some types have, located after the property table
+        if ctx.extended_properties and self.klass.value:
+            stream.offset += 4  # skip the remaining bytes of the PropertyTable marker
+
+            type_cls = AFTER_PROPERTY_TABLE_TYPES.get(str(self.klass.value.name), None)
+            if type_cls:
+                extended_object = type_cls(self, weakref.proxy(stream))
+                self._newField('extended_data', extended_object.deserialise(self.properties))
 
     def format_for_json(self):
         return dict(

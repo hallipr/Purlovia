@@ -13,8 +13,9 @@ defaults:
         wiki: true
         wiki.maps: false
         wiki.spawn_groups: false
-        wiki.biome_maps: false
-        wiki.spawn_maps: false
+        maps.biome_maps: false
+        maps.spawn_data: false
+        maps.spawn_maps: false
 
     # Parts of a classname that will be added as a variant, matching _Variant or Variant_
     classname_variant_parts:
@@ -92,6 +93,70 @@ defaults:
             ignore_nothing: '\**IGNORE(\*|\s)*NOTHING\**'
             no_effect: '\**NO(\*|\s)*EFFECT\**'
             not_used: '\**NOT(\*|\s)*USED\**'
+    
+    # Harvest components that will not have any nodes emitted for them
+    exclude_harvestables:
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/StoneHarvestComponent: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/SeedHarvestComponent: true
+        /Game/Mods/Ragnarok/Ragnarok_Landscape_sharedassets/Stick_Pickup_Component: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/SeedHarvestComponent_Swamp: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent_ExtraWood: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent_LessWood: true
+        /Game/Mods/Ragnarok/Custom_Assets/JacksonL/Palm_Pickup_Component: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/StoneHarvestComponent_LowHealth: true
+        /Game/Mods/Ragnarok/Custom_Assets/Environment/Aloe/AloeHarvestComponent: true
+        /Game/Mods/Ragnarok/Custom_Assets/JacksonL/Underwater_Viking_Pickup_Component: true
+        /Game/Mods/Ragnarok/Custom_Assets/JacksonL/Sandpile/SandPile_Pickup_Component: true
+        /Game/Mods/Ragnarok/Custom_Assets/JacksonL/CoralHarvestComponent_Jackson: true
+        /Game/Mods/Ragnarok/Custom_Assets/Environment/Underwater/Rocks/RAG_UnderwaterRockharvestComponent: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent_Swamp: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponentSnow: true
+        /Game/Mods/Ragnarok/Custom_Assets/Trees/DeadPine_Volcano/BurntWoodHarvestComponent: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent_RedWood: true
+        /Game/ScorchedEarth/CoreBlueprints/HarvestComponents/SeedWithSilkHarvestComponent: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/SeedHarvestComponentMountain: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/SeedHarvestComponentMountainSnow: true
+        /Game/ScorchedEarth/CoreBlueprints/HarvestComponents/SandHarvestComponent: true
+        /Game/ScorchedEarth/CoreBlueprints/HarvestComponents/SandRecolectableHarvestComponent: true
+        /Game/Extinction/Environment/Ruins/City/Vegetation/Palm_Pickup_Component_EXT: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_CorruptTree: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_CorruptTree_LessSap: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/StoneHarvestComponent_RequiresMetal_Ex: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_CorruptTree_VFX_Red: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/StoneHarvestComponent_LowHealth: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_Ex_ExtraWood: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/RockHarvestComponent: true
+        /Game/Aberration/CoreBlueprints/HarvestComponents/WoodHarvestComponent_KaijuOnly: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_Ex_RareRedwoodSap: true
+        /Game/Extinction/Environment/Wasteland/Vegetation/Clutter/Sticks/EX_HarvestStick_Component: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/SeedHarvestComponent_Ex_Base: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_Ex_Base: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_CorruptTree_Heartier: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/WoodHarvestComponent_CorruptTree_BlueSap: true
+        /Game/Genesis2/CoreBlueprints/HarvestComponents/WoodSap_HarvestComponent: true
+        /Game/Genesis2/CoreBlueprints/HarvestComponents/WoodFungal_HarvestComponent: true
+        /Game/Genesis/CoreBlueprints/HarvestComponents/MushroomHarvestComponent: true
+        /Game/Genesis2/CoreBlueprints/HarvestComponents/StoneSand_HarvestComponent: true
+        /Game/Genesis2/CoreBlueprints/HarvestComponents/MushroomHarvestComponent_Poison: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/SeedHarvestComponentX: true
+        /Game/Aberration/CoreBlueprints/HarvestComponents/WoodHarvestComponent_MushroomTree: true
+        /Game/Genesis/CoreBlueprints/HarvestComponents/CoralHitHarvestComponent: true
+        /Game/Genesis/CoreBlueprints/HarvestComponents/CoralUseHarvestComponent: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent_LessWood_Swamp: true
+        /Game/ScorchedEarth/CoreBlueprints/HarvestComponents/WoodHardHarvestComponent: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/StoneHarvestComponentRich: true
+        /Game/Mods/Valguero/Assets/Environment/Beach/Palm_Pickup/Palm_Pickup_Component: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent_DenseWood: true
+        /Game/Mods/Valguero/Assets/CoreBlueprints/HarvestComponents/BurntWoodHarvestComponent: true
+        /Game/Aberration/Environment/FertileChamber/Vegetation/Trees/TreeF/TreeFHarvestComponent_mushroom: true
+        /Game/Aberration/Environment/FertileChamber/Vegetation/Trees/TreeF/TreeF02HarvestComponent: true
+        /Game/Aberration/Environment/FertileChamber/Vegetation/Trees/TreeF/TreeF03HarvestComponent_mushroom: true
+        /Game/Extinction/CoreBlueprints/HarvestComponents/SeedHarvestComponent_Ex_Snow: true
+        /Game/PrimalEarth/CoreBlueprints/HarvestComponents/SeedHarvestComponentSnow: true
+        /Game/Genesis/CoreBlueprints/HarvestComponents/Wood_Hand_HarvestComponent: true
+        /Game/ScorchedEarth/CoreBlueprints/HarvestComponents/WoodHarvestComponent_RareRedwoodSap: true
+        
 
 
 sanity_checks:
@@ -146,8 +211,9 @@ mods:
             # Re-enable deselected stages
             wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.biome_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
 
         classname_variant_parts:
             TekCave: true
@@ -235,8 +301,18 @@ mods:
         include_in_stages: # Maps required for the Wiki
             wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.biome_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
+
+    2270358503:
+        include_in_stages: # Maps required for the Wiki
+            wiki.maps: true
+            wiki.spawn_groups: true
+            maps.biome_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
+
 
     LostIsland:
         include_in_stages: # Maps required for the Wiki
@@ -256,32 +332,24 @@ mods:
 
     839162288: # Primal Fear
         include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
 
         color_regions:
             useless_name_regexes:
                 pf_groups: '(Toxic|Alpha|Electric|Golds?|Blacks?)\d*'
 
     1356703358: # Primal Fear Noxious
-        include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
-            wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
-
         color_regions:
             useless_name_regexes:
                 pfn_groups: '(Toxic|Alpha)\d*'
 
     1681125667: # Primal Fear Extinction Expansion
         include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
 
         classname_variant_parts:
             Child: true
@@ -289,10 +357,9 @@ mods:
 
     899987403: # Primal Fear Bosses
         include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
 
         classname_variant_parts:
             Baby: true
@@ -325,10 +392,9 @@ mods:
 
     893735676: # Ark Eternal
         include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.spawn_data: false
+            maps.spawn_maps: false
 
         classname_variant_parts:
             NoHarvest: true
@@ -344,24 +410,21 @@ mods:
 
     1445395055: # Ark Additions: Domination Rex
         include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
 
     1522327484: # ARK Additions: The Collection!
         include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
 
     1787443195: # The Chasm - Additional Creatures
         include_in_stages: # Maps required for the Wiki
-            wiki.maps: true
             wiki.spawn_groups: true
-            wiki.biome_maps: true
-            wiki.spawn_maps: true
+            maps.spawn_data: true
+            maps.spawn_maps: true
 
     1999447172: # Super Structures
         include_in_stages: # disable anything species-related
@@ -388,56 +451,56 @@ maps:
 
     # SVG generation overrides
     # Core maps
-    /Game/Maps/Aberration/Aberration_P:
+    /Game/Maps/Aberration:
         svgs:
             border_top: 7.2
             border_left: 7.2
             border_right: 92.8
             border_bottom: 92.8
-    /Game/Maps/Extinction/Extinction:
+    /Game/Maps/Extinction:
         svgs:
             border_top: 7.2
             border_left: 7.2
             border_right: 92.8
             border_bottom: 92.8
-    /Game/Maps/Genesis/Genesis:
+    /Game/Maps/Genesis:
         svgs:
             border_top: 11.5
             border_left: 11.5
             border_right: 88.5
             border_bottom: 88.5
-    /Game/Maps/ScorchedEarth/ScorchedEarth_P:
+    /Game/Maps/ScorchedEarth:
         svgs:
             border_top: 7.2
             border_left: 7.2
             border_right: 92.8
             border_bottom: 92.8
-    /Game/Maps/TheIslandSubMaps/TheIsland:
+    /Game/Maps/TheIslandSubMaps:
         svgs:
             border_top: 7.2
             border_left: 7.2
             border_right: 92.8
             border_bottom: 92.8
     # Official mods
-    /Game/Mods/TheCenter/TheCenter:
+    /Game/Mods/TheCenter:
         svgs:
             border_top: -3
             border_left: 3
             border_right: 102
             border_bottom: 102
-    /Game/Mods/Ragnarok/Ragnarok:
+    /Game/Mods/Ragnarok:
         svgs:
             border_top: 0
             border_left: 0
             border_right: 100
             border_bottom: 100
-    /Game/Mods/Valguero/Valguero_P:
+    /Game/Mods/Valguero:
         svgs:
             border_top: -2.3
             border_left: -1.6
             border_right: 99.7
             border_bottom: 104
-    /Game/Mods/CrystalIsles/CrystalIsles:
+    /Game/Mods/CrystalIsles:
         svgs:
             border_top: 10.5
             border_left: 14
@@ -1932,7 +1995,6 @@ species:
 
     /Game/Genesis2/Dinos/TekStrider/TekStrider_Character_BP:
         taming_method: awake
-
 
 
     # Mod-specific overrides

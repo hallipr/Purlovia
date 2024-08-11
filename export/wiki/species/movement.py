@@ -58,6 +58,12 @@ def gather_movement_data(species: PrimalDinoCharacter, dcsc: DinoCharacterStatus
 
     result.movementW = _gather_speeds(species, species.ExtraUnTamedSpeedMultiplier[0], False)
     result.movementD = _gather_speeds(species, species.ExtraTamedSpeedMultiplier[0], True)
+    if species.bAllowRiding[0] and (species.RiderMaxSpeedModifier[0] != 1.0 or species.RiderExtraMaxSpeedModifier[0] != 1.0 or species.RiderMaxRunSpeedModifier[0] != 1.0):
+        result.movementR = MovementModes(
+            walk=_calculate_ridden_speeds(species, result.movementD.walk),
+            swim=_calculate_ridden_speeds(species, result.movementD.swim),
+            fly=_calculate_ridden_speeds(species, result.movementD.fly),
+        )
     result.staminaRates = _gather_stamina(dcsc, result.movementW)
 
     rider_main_differs = species.RiderMaxSpeedModifier[0] != 1

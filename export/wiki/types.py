@@ -1,7 +1,7 @@
 from typing import Mapping
 
 from ue.properties import ArrayProperty, ByteProperty, NameProperty, ObjectProperty, StructProperty
-from ue.proxy import UEProxyStructure, uebools, uefloats, ueints, uestrings
+from ue.proxy import UEProxyStructure, uebools, uebytes, uefloats, ueints, uestrings
 
 from .consts import CHARGE_NODE_CLS, EXPLORER_CHEST_BASE_CLS, GAS_VEIN_CLS, GAS_VEIN_GEN1_CLS, LUNAR_OXYGEN_VENT_GEN1_CLS, \
     OIL_VEIN_CLS, OIL_VENT_GEN1_CLS, POINT_OF_INTEREST_LIST_GEN1_CLS, WATER_VEIN_CLS, WILD_PLANT_SPECIES_Z_CLS
@@ -43,6 +43,7 @@ __all__ = [
     'MissionType_Escort',
     'MissionType_Retrieve',
     'MissionType',
+    'HierarchicalInstancedStaticMeshComponent',
 ]
 
 
@@ -57,6 +58,7 @@ class PrimalWorldSettings(UEProxyStructure, uetype='/Script/ShooterGame.PrimalWo
     bPreventGlobalNonEventSpawnOverrides = uebools(False)
 
     # DevKit Unverified
+    ValidEngramGroupsBitMask = ueints(2)
 
     OverrideWeaponMapTextureEmpty: Mapping[int, ObjectProperty]
     OverrideWeaponMapTextureFilled: Mapping[int, ObjectProperty]
@@ -188,58 +190,6 @@ class PointOfInterestBP(UEProxyStructure, uetype=GENESIS_POI_CLS):
     MyPointOfInterestData: Mapping[int, StructProperty]
 
 
-class OilVein(UEProxyStructure, uetype=OIL_VEIN_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class OilVentGen1(UEProxyStructure, uetype=OIL_VENT_GEN1_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class GasVeinGen1(UEProxyStructure, uetype=GAS_VEIN_GEN1_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class LunarOxygenVentGen1(UEProxyStructure, uetype=LUNAR_OXYGEN_VENT_GEN1_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class WaterVein(UEProxyStructure, uetype=WATER_VEIN_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class GasVein(UEProxyStructure, uetype=GAS_VEIN_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class PrimalStructurePowerNode(UEProxyStructure, uetype=CHARGE_NODE_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class PrimalStructurePowerNode_Damaged(
-        PrimalStructurePowerNode,
-        uetype='/Game/Aberration/Structures/PowerNode/PrimalStructurePowerNode_Damaged.PrimalStructurePowerNode_Damaged_C'):
-    ...
-
-
-class WildPlantSpeciesZ(UEProxyStructure, uetype=WILD_PLANT_SPECIES_Z_CLS):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
-class PoisonTree(UEProxyStructure,
-                 uetype='/Game/Genesis/Environment/Bog/Vegetation/Foliage/PoisonPlant/BP_HeroPoisonPlant.BP_HeroPoisonPlant_C'):
-    # No properties we can assume type for.
-    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
-
-
 class ExplorerNote(UEProxyStructure, uetype=EXPLORER_CHEST_BASE_CLS):
     # DevKit Verified
     bIsVisible = uebools(True)
@@ -269,16 +219,11 @@ class NPCSpawnEntriesContainer(UEProxyStructure, uetype='/Script/ShooterGame.NPC
 
 
 class PrimalInventoryComponent(UEProxyStructure, uetype='/Script/ShooterGame.PrimalInventoryComponent'):
-
-    # DevKit Unverified
-    ItemSets: Mapping[int, ArrayProperty]
-    ItemSetsOverride: Mapping[int, ArrayProperty]
-    AdditionalItemSets: Mapping[int, ArrayProperty]
-    AdditionalItemSetsOverride: Mapping[int, ArrayProperty]
-
+    # DevKit Verified
     InventoryNameOverride = uestrings('')
     RemoteInventoryDescriptionString = uestrings('')
 
+    bIgnoreMaxInventoryItems = uebools(False)
     MaxInventoryItems = ueints(0)
     MaxInventoryWeight = uefloats(0)
 
@@ -289,6 +234,17 @@ class PrimalInventoryComponent(UEProxyStructure, uetype='/Script/ShooterGame.Pri
     MinQualityMultiplier = uefloats(1.0)
     MaxQualityMultiplier = uefloats(1.0)
     NumItemSetsPower = uefloats(1.0)
+
+    ItemSets: Mapping[int, ArrayProperty]
+    ItemSetsOverride: Mapping[int, ArrayProperty]
+    AdditionalItemSets: Mapping[int, ArrayProperty]
+    AdditionalItemSetsOverride: Mapping[int, ArrayProperty]
+
+    ItemClassWeightMultipliers: Mapping[int, ArrayProperty]  # = []
+    ItemSpoilingTimeMultipliers: Mapping[int, ArrayProperty]  # = []
+
+    # DevKit Unverified
+    InventoryNameOverride = uestrings('')
 
 
 class PrimalStructureItemContainer_SupplyCrate(UEProxyStructure,
@@ -331,27 +287,6 @@ class PrimalEngramEntry(UEProxyStructure, uetype='/Script/ShooterGame.PrimalEngr
 class DayCycleManager_Gen1(UEProxyStructure, uetype='/Script/ShooterGame.DayCycleManager'):
     # No properties we can assume type for.
     GenesisTradableOptions: Mapping[int, ArrayProperty]
-
-
-class MissionDispatcher(UEProxyStructure, uetype='/Script/ShooterGame.MissionDispatcher'):
-    RootComponent: Mapping[int, ObjectProperty]
-
-
-class MissionDispatcher_MultiUsePylon(
-        MissionDispatcher, uetype='/Game/Genesis/Missions/MissionDispatcher_MultiUsePylon.MissionDispatcher_MultiUsePylon_C'):
-    # DevKit Verified
-    MissionTypeIndex = ueints(0)
-
-    # DevKit Unverified
-
-    MissionTypes: Mapping[int, ArrayProperty]
-    RootComponent: Mapping[int, ObjectProperty]
-
-
-class MissionDispatcher_FinalBattle(
-        MissionDispatcher,
-        uetype='/Game/Genesis2/Missions/MissionDispatcher_Gen2_FinalBattle.MissionDispatcher_Gen2_FinalBattle_C'):
-    ...
 
 
 class PlayerStart(UEProxyStructure, uetype='/Script/Engine.PlayerStart'):
@@ -529,7 +464,37 @@ class MissionType_Basketball(
     Basketball_Dino: Mapping[int, StructProperty]
 
 
-class TekCloningChamber(UEProxyStructure, uetype='/Game/PrimalEarth/Structures/TekTier/TekCloningChamber.TekCloningChamber_C'):
+class PrimalStructure(UEProxyStructure, uetype='/Script/ShooterGame.PrimalStructure'):
+    # DevKit Verified
+    DescriptiveName = uestrings('')
+    bCanDemolish = uebools(True)
+    bImmuneToAutoDemolish = uebools(False)
+    bPreventAttachToSaddle = uebools(False)
+    bUsesHealth = uebools(False)
+    bCanBeDamaged = uebools(True)
+    Health = uefloats(100.0)
+    DecayDestructionPeriod = uefloats(345600.0)
+    DecayDestructionPeriodMultiplier = uefloats(1.0)
+    AllowStructureColorSets = uebytes(0, 0, 0, 0, 0, 0)
+    bForceAllowInPreventionVolumes = uebools(False)
+
+    # DevKit Unverified
+    bAllowStructureColors = uebools(True)
+    bUsesPaintingComponent = uebools(False)
+    bAllowAttachToSaddle = uebools(True)
+    bDisableStructureOnElectricStorm = uebools(False)
+
+    StructureSettingsClass: Mapping[int, ObjectProperty]  # = None
+
+
+class PrimalStructureSettings(UEProxyStructure, uetype='/Script/ShooterGame.PrimalStructureSettings'):
+    # DevKit Verified
+    DecayDestructionPeriodMultiplier = uefloats(1.0)
+
+    # DevKit Unverified
+
+
+class TekCloningChamber(PrimalStructure, uetype='/Game/PrimalEarth/Structures/TekTier/TekCloningChamber.TekCloningChamber_C'):
     # DevKit Verified
     CloneBaseElementCostGlobalMultiplier = uefloats(2500.0)
     CloneElementCostPerLevelGlobalMultiplier = uefloats(5500.0)
@@ -547,6 +512,100 @@ class MutagenSpawnerManager(
     # DevKit Unverified
 
 
-class Carniflora(UEProxyStructure, uetype='/Game/Genesis2/Structures/VenusFlyTrap/VenusFlyTrap_BP.VenusFlyTrap_BP_C'):
+class Carniflora(PrimalStructure, uetype='/Game/Genesis2/Structures/VenusFlyTrap/VenusFlyTrap_BP.VenusFlyTrap_BP_C'):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class HierarchicalInstancedStaticMeshComponent(UEProxyStructure,
+                                               uetype='/Script/Engine.HierarchicalInstancedStaticMeshComponent'):
+    # DevKit Verified
+    AttachedComponentClass: Mapping[int, ObjectProperty]  # = None
+
+    # DevKit Unverified
+
+
+class PrimalStructurePowerNode(PrimalStructure, uetype=CHARGE_NODE_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class PrimalStructurePowerNode_Damaged(PrimalStructurePowerNode,
+                                       uetype='/Game/Aberration/Structures/PowerNode/PrimalStructurePowerNode_Damaged'):
+    ...
+
+
+class GasVein(PrimalStructure, uetype=GAS_VEIN_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class WaterVein(PrimalStructure, uetype=WATER_VEIN_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class WildPlantSpeciesZ(PrimalStructure, uetype=WILD_PLANT_SPECIES_Z_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class PoisonTree(PrimalStructure,
+                 uetype='/Game/Genesis/Environment/Bog/Vegetation/Foliage/PoisonPlant/BP_HeroPoisonPlant.BP_HeroPoisonPlant_C'):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class MissionDispatcher(PrimalStructure, uetype='/Script/ShooterGame.MissionDispatcher'):
+    RootComponent: Mapping[int, ObjectProperty]
+
+
+class MissionDispatcher_MultiUsePylon(
+        MissionDispatcher, uetype='/Game/Genesis/Missions/MissionDispatcher_MultiUsePylon.MissionDispatcher_MultiUsePylon_C'):
+    # DevKit Verified
+    MissionTypeIndex = ueints(0)
+
+    # DevKit Unverified
+
+    MissionTypes: Mapping[int, ArrayProperty]
+    RootComponent: Mapping[int, ObjectProperty]
+
+
+class MissionDispatcher_FinalBattle(
+        MissionDispatcher,
+        uetype='/Game/Genesis2/Missions/MissionDispatcher_Gen2_FinalBattle.MissionDispatcher_Gen2_FinalBattle_C'):
+    ...
+
+
+class MutagenSpawnerManager(
+        UEProxyStructure,
+        uetype='/Game/Genesis2/CoreBlueprints/Environment/Mutagen/MutagenSpawnerManager.MutagenSpawnerManager_C'):
+    # DevKit Verified
+    Spawners: Mapping[int, ArrayProperty]  # = []
+
+    # DevKit Unverified
+
+
+class OilVein(PrimalStructure, uetype=OIL_VEIN_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class OilVentGen1(PrimalStructure, uetype=OIL_VENT_GEN1_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class GasVeinGen1(PrimalStructure, uetype=GAS_VEIN_GEN1_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class LunarOxygenVentGen1(PrimalStructure, uetype=LUNAR_OXYGEN_VENT_GEN1_CLS):
+    # No properties we can assume type for.
+    RootComponent: Mapping[int, ObjectProperty]  # SceneComponent
+
+
+class Carniflora(PrimalStructure, uetype='/Game/Genesis2/Structures/VenusFlyTrap/VenusFlyTrap_BP.VenusFlyTrap_BP_C'):
     # No properties we can assume type for.
     RootComponent: Mapping[int, ObjectProperty]  # SceneComponent

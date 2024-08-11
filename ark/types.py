@@ -236,6 +236,7 @@ class PrimalDinoCharacter(UEProxyStructure, uetype=PDC_CLS):
     DragWeight = uefloats(35.0)
     PreventColorizationRegions = uebytes(*repeat(0, COLOR_REGION_COUNT))
     AutoFadeOutAfterTameTime = uefloats(0.0)
+    TamedInventoryComponentTemplate: Mapping[int, ObjectProperty]  # = None
 
     # Breeding/reproduction
     BabyAgeSpeed = uefloats((0.03300000, '022b073d'))
@@ -324,6 +325,7 @@ class PrimalGameData(UEProxyStructure, uetype=PGD_CLS):
 
     ColorDefinitions: Mapping[int, ArrayProperty]  # = []
     MasterDyeList: Mapping[int, ArrayProperty]  # = []
+    ExplorerNoteEntries: Mapping[int, ArrayProperty]  # = []
 
     # DevKit Unverified
 

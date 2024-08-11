@@ -4,6 +4,8 @@ from automate.hierarchy_exporter import ExportModel, Field
 from ue.properties import BoolProperty, FloatProperty, IntProperty
 
 __all__ = [
+    'IntLike',
+    'FloatLike',
     'MinMaxRange',
     'MinMaxPowerRange',
     'DecayTime',
